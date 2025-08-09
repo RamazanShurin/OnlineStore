@@ -1,0 +1,729 @@
+﻿    
+@{
+    ViewData["Title"] = "Редактор";
+}
+
+@section Css{
+    <link href="~/css/fonts.css" rel="stylesheet" />
+}
+<form asp-action="RedactorW" enctype="multipart/form-data" id="formRedactor">
+    <div style="margin-top: 25px;">
+        <a asp-action="Index" asp-controller="Main" class="link2S"><i class="fab fa-elementor"></i> Назад в каталог</a>
+        <a asp-action="Index" asp-controller="Main" class="link3S">Главная</a> —
+        <a href="#" class="link3S">Редактор женской футболки</a>
+        <hr />
+        <!-- канвас 1 -->
+
+        <div class="row" id="rowCanvas1">
+            <div class="col-lg-1">
+                <div class="block20S" onclick="canvasSelect(1)" style="background-image: url(../img/maykaW.png); border: 2px solid #0099ff;">
+                </div>
+                <div class="block21S" style="background-image: url(../img/maykaW2.png);" onclick="canvasSelect(2)">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <canvas id="canvas1" width="262" height="300" style="border: 1px solid #d0d7dd;"></canvas>
+            </div>
+            <div class="col-lg-4">
+                <h5>Инструменты:</h5>
+                <div class="block50S">
+                    <div class="example-1" style="margin-top: 10px;">
+                        <label class="label">
+                            <i class="fas fa-camera fa-lg"></i>
+                            <span class="title">Добавить фото</span>
+                            <input type="file" style="display: none;" onchange="onFileSelected(event)" accept="image/x-png,image/gif,image/jpeg">
+                        </label>
+                    </div>
+                    <label style="margin-top: 10px;" for="fontFamily">Шрифт</label>
+                    <select id="fontFamily"></select>
+                    <br />
+
+
+                    <label style="margin-top: 10px;" for="color">Цвет</label>
+                    <label class="color-picker">
+                        <span>
+                            <input id="color" type="color" value="#ff0000" onchange="onEditColor(this.value)">
+                        </span>
+                    </label>
+                    <br />
+
+                    <div id="bringToFront" class="block32S">Слой вверх <i class="fas fa-layer-group"></i><i class="fas fa-level-up-alt"></i></div>
+                    <div id="sendToBack" class="block32S">Слой вниз <i class="fas fa-layer-group"></i><i class="fas fa-level-down-alt"></i></div>
+                    <div class="block32S" onclick="onAddText()">Добавить текст <i class="fas fa-ad"></i></div>
+                    <div id="deleteBtn" class="block33S"><label class="label18S">(Для удаления выберите элемент и нажмите эту кнопку)</label><i class="fas fa-trash-alt"></i></div>
+                </div>
+                <h5>Метод нанесения:</h5>
+                <div class="block50S">
+                    <label>
+                        Метод нанесения на футболку - <b>Сублимация</b>. Картинка печатается на принтере специальными чернилами на специальной бумаге,
+                        а после закрепляется на футболке методом термопереноса. С помощью термопресса картинка плотно
+                        прижимается к запечатываемой поверхности футболки, и под воздействием высокой температуры краски
+                        с бумаги проникает в верхний слой самой футболки.
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- канвас2 -->
+        <div class="row" id="rowCanvas2" style="display: none;">
+            <div class="col-lg-1">
+                <div class="block20S" onclick="canvasSelect(1)" style="background-image: url(../img/maykaW.png);">
+                </div>
+                <div class="block21S" onclick="canvasSelect(2)" style="background-image: url(../img/maykaW2.png); border: 2px solid #0099ff;">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <canvas id="canvas2" width="262" height="300" style="border: 1px solid #d0d7dd;"></canvas>
+
+            </div>
+            <div class="col-lg-4">
+                <h5>Инструменты:</h5>
+                <div class="block50S">
+                    <div class="example-1" style="margin-top: 10px;">
+                        <label class="label">
+                            <i class="fas fa-camera fa-lg"></i>
+                            <span class="title">Добавить фото</span>
+                            <input type="file" style="display: none;" onchange="onFileSelected2(event)" accept="image/x-png,image/gif,image/jpeg">
+                        </label>
+                    </div>
+                    <label style="margin-top: 10px;" for="fontFamily2">Шрифт</label>
+                    <select id="fontFamily2"></select>
+                    <br />
+
+
+                    <label style="margin-top: 10px;" for="color">Цвет</label>
+                    <label class="color-picker">
+                        <span>
+                            <input id="color" type="color" value="#ff0000" onchange="onEditColor2(this.value)">
+                        </span>
+                    </label>
+                    <br />
+
+                    <div id="bringToFront2" class="block32S">Слой вверх <i class="fas fa-layer-group"></i><i class="fas fa-level-up-alt"></i></div>
+                    <div id="sendToBack2" class="block32S">Слой вниз <i class="fas fa-layer-group"></i><i class="fas fa-level-down-alt"></i></div>
+                    <div class="block32S" onclick="onAddText2()">Добавить текст <i class="fas fa-ad"></i></div>
+                    <div id="deleteBtn2" class="block33S"><label class="label18S">(Для удаления выберите элемент и нажмите эту кнопку)</label><i class="fas fa-trash-alt"></i></div>
+                </div>
+                <h5>Метод нанесения:</h5>
+                <div class="block50S">
+                    <label>
+                        Метод нанесения на футболку - <b>Сублимация</b>. Картинка печатается на принтере специальными чернилами на специальной бумаге,
+                        а после закрепляется на футболке методом термопереноса. С помощью термопресса картинка плотно
+                        прижимается к запечатываемой поверхности футболки, и под воздействием высокой температуры краски
+                        с бумаги проникает в верхний слой самой футболки.
+                    </label>
+                </div>
+            </div>
+            </div>
+
+        <div style="text-align: center;">
+            <hr />
+            <label class="label6S">Размеры</label>
+            <a href="#" id="go" class="link4S">(Узнать размер)</a>
+            <label class="block8S" onclick="Size('Ssize')">S</label>
+            <input style="display: none;" type="radio" value="S" id="Ssize" name="size2" required />
+            <label class="block8S" style="color: white; background: #e5097f" onclick="Size('Msize')">M</label>
+            <input style="display: none;" type="radio" value="M" id="Msize" name="size2" checked />
+            <label class="block8S" onclick="Size('Lsize')">L</label>
+            <input style="display: none;" type="radio" value="L" id="Lsize" name="size2" />
+            <label class="block8S" onclick="Size('XLsize')">XL</label>
+            <input style="display: none;" type="radio" value="XL" id="XLsize" name="size2" />
+            <label class="block8S" onclick="Size('XXLsize')">XXL</label>
+            <input style="display: none;" type="radio" value="XXL" id="XXLsize" name="size2" />
+            <label class="block8S" onclick="Size('XXXLsize')">XXXL</label>
+            <input style="display: none;" type="radio" value="XXXL" id="XXXLsize" name="size2" />
+            &nbsp;&nbsp;&nbsp;
+            <button onclick="formRequest()" class="btn btn-success">Подтвердить</button>
+        </div>
+    </div>
+    <input type="hidden" name="imageData" id="my_hidden" />
+    <input type="hidden" name="imageDataBack" id="my_hiddenBack" />
+    <div id="photosHidden"></div>
+</form>
+<div id="modal_form">
+    <!-- Сaмo oкнo -->
+    <i id="modal_close" class="fas fa-times-circle"></i>
+    <!-- Кнoпкa зaкрыть -->
+    <!-- Тут любoе сoдержимoе -->
+    <div class="row">
+        <div class="col-4">
+            <img src="~/img/mayka2.png" style="width: 120%;" alt="Конструктор футболок, маек" />
+            <img src="~/img/2_blue.png" class="img5S" />
+        </div>
+        <div class="col-8">
+            <table cellspacing="0" align="center" class="tableS">
+                <tbody>
+                    <tr>
+                        <th>Размер<br>EU</th>
+                        <th>Размер<br>RU</th>
+                        <th>Длина<br>X, Y</th>
+                    </tr>
+                    <tr>
+                        <td>XS</td>
+                        <td>42-44</td>
+                        <td style="white-space: nowrap;">
+                            43см, 66см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>44-46</td>
+                        <td style="white-space: nowrap;">
+                            49см, 68см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>46-48</td>
+                        <td style="white-space: nowrap;">
+                            51см, 72см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>L</td>
+                        <td>48-50</td>
+                        <td style="white-space: nowrap;">
+                            55см, 73см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XL</td>
+                        <td>50-52</td>
+                        <td style="white-space: nowrap;">
+                            57см, 75см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XXL</td>
+                        <td>52-54</td>
+                        <td style="white-space: nowrap;">
+                            59см, 78см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XXXL</td>
+                        <td>54-56</td>
+                        <td style="white-space: nowrap;">
+                            64см, 80см
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="modal_formM">
+    <!-- Сaмo oкнo -->
+    <i id="modal_close" class="fas fa-times-circle"></i>
+    <!-- Кнoпкa зaкрыть -->
+    <!-- Тут любoе сoдержимoе -->
+    <table cellspacing="0" align="center" class="tableS" style="margin-left: 0;">
+        <tbody>
+            <tr>
+                <th>Размер<br>EU</th>
+                <th>Размер<br>RU</th>
+            </tr>
+            <tr>
+                <td>XS</td>
+                <td>42-44</td>
+            </tr>
+            <tr>
+                <td>S</td>
+                <td>44-46</td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>46-48</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>48-50</td>
+            </tr>
+            <tr>
+                <td>XL</td>
+                <td>50-52</td>
+            </tr>
+            <tr>
+                <td>XXL</td>
+                <td>52-54</td>
+            </tr>
+            <tr>
+                <td>XXXL</td>
+                <td>54-56</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<div id="overlay"></div><!-- Пoдлoжкa -->
+@section Scripts{
+    <script src="~/js/fabric.js"></script>
+    <script>
+        var fonts = ['Times New Roman', 'Amatic SC', 'Lobster', "Pacifico",
+            'Montserrat', "Oswald", 'Roboto Condensed', 'Open Sans Condensed',
+            'Comfortaa', 'Roboto Mono', 'Play', 'Old Standart TT',
+            'Caveat', 'Poiret One', 'Russo One', 'Neucha', 'Marck Script',
+            'Bad Script', 'Press Start 2P'
+        ];
+
+        // Выбор стороны футболки
+        function canvasSelect(id) {
+            if (id == 1) {
+                $('#rowCanvas1').css('display', 'flex');
+                $('#rowCanvas2').css('display', 'none');
+            } else {
+                $('#rowCanvas2').css('display', 'flex');
+                $('#rowCanvas1').css('display', 'none');
+            }
+        }
+
+        //это канвас
+        var imageArr = [];
+
+        var canvas = new fabric.Canvas('canvas1', { selection: false, allowTouchScrolling: true });
+
+        var img =
+            fabric.Image.fromURL('../img/maykaW.png', function (img) {
+                img.scaleToWidth(canvas.width);
+                img.scaleToHeight(canvas.height);
+                canvas.setBackgroundImage(img);
+                canvas.requestRenderAll();
+            });
+
+        $(canvas).ready(function () {
+            if (window.innerWidth > 550) {
+                console.log(window.innerWidth);
+                //канвас размеры
+                canvas.setHeight(600);
+                canvas.setWidth(520);
+                canvas.renderAll();
+
+                img = fabric.Image.fromURL('../img/maykaW.png', function (img) {
+                    img.scaleToWidth(canvas.width);
+                    img.scaleToHeight(canvas.height);
+                    canvas.setBackgroundImage(img);
+                    canvas.requestRenderAll();
+                });
+            }
+        });        
+
+        // Ограничение рамок
+        var boundingBox = new fabric.Rect({
+            fill: "rgba(0,0,0,0)",
+            stroke: "rgba(179, 173, 173, 1)",
+            top: 50,
+            left: 70,
+            width: 120,
+            height: 200,
+            hasBorders: false,
+            hasControls: false,
+            lockMovementX: true,
+            lockMovementY: true,
+            evented: false
+        });
+
+        $(document).ready(function () {
+            if (window.innerWidth > 550) {
+                console.log("bounding");
+                boundingBox.top = 100;
+                boundingBox.left = 137;
+                boundingBox.width = 240;
+                boundingBox.height = 400;
+
+            }
+        });
+
+        canvas.add(boundingBox);
+        
+        var disableScroll = function () {
+            canvas.allowTouchScrolling = false;
+        };
+
+        var enableScroll = function () {
+            canvas.allowTouchScrolling = true;
+        };
+
+        canvas.on('object:moving', disableScroll);
+        canvas.on('object:scaling', disableScroll);
+        canvas.on('object:rotating', disableScroll);
+        canvas.on('mouse:up', enableScroll);
+
+        // Обманка
+        var falseActive = new fabric.IText('falseActive', {
+            fontFamily: 'Lobster',
+            fontSize: 20,
+            left: 550,
+            top: 110,
+            fill: 'black'
+        });
+        canvas.add(falseActive);
+
+        var select = document.getElementById("fontFamily");
+
+        fonts.forEach(function (font) {
+            var option = document.createElement('option');
+            option.innerHTML = font;
+            option.value = font;
+            option.style.fontFamily = font;
+            select.appendChild(option);
+            var textbox = new fabric.Textbox('Русский текст', {
+                fontFamily: font,
+                fontSize: 20,
+                left: -1000,
+                top: 100,
+                fill: 'green'
+            });
+            canvas.add(textbox);
+
+        })
+
+        function onAddText() {
+            var textbox = new fabric.IText('Русский текст', {
+                fontFamily: 'Lobster',
+                fontSize: 20,
+                left: 140,
+                top: 110,
+                fill: 'black'
+            });
+            canvas.add(textbox).setActiveObject(textbox);
+        }
+
+        function onEditColor(color) {
+            console.log(color);
+            var active = canvas.getActiveObject();
+            active.fill = color;
+            active.dirty = true;
+            canvas.remove(active);
+            canvas.add(active);
+            canvas.setActiveObject(active);
+        }
+
+        var fontControl = $('#fontFamily');
+        $(document.body).on('change', '#fontFamily', function () {
+            var active = canvas.getActiveObject();
+
+            active.set("fontFamily", this.value);
+
+            canvas.requestRenderAll();
+        });
+
+        function onFileSelected(event) {
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var img = new Image();
+                img.src = event.target.result;
+                imageArr.push(img.src);
+
+                //Создание тега хидден для отправки на сервер
+                $('#photosHidden').append("<input type='hidden' name='imagesAll' value='" + img.src + "'/>");
+
+                img.onload = function () {
+                    if (window.innerWidth < 550) {
+                        var image = new fabric.Image(img);
+                        image.set({
+                            left: 80,
+                            top: 60,
+                            padding: 10,
+                            cornersize: 10,
+                            scaleX: 100 / img.width,
+                            scaleY: 100 / ((img.width - img.height) + img.height)
+                        });
+                        canvas.add(image).setActiveObject(image);
+                        canvas.bringForward(image);
+                    }
+                    else {
+                        var image = new fabric.Image(img);
+                        image.set({
+                            left: 150,
+                            top: 110,
+                            padding: 10,
+                            cornersize: 10,
+                            scaleX: 200 / img.width,
+                            scaleY: 200 / ((img.width - img.height) + img.height)
+                        });
+                        canvas.add(image).setActiveObject(image);
+                        canvas.bringForward(image);
+                    }
+                }
+
+            }
+            reader.readAsDataURL(selectedFile);
+        }
+
+        jQuery(document).on('click', "#deleteBtn ", function () {
+            if (canvas.getActiveObject()) {
+                canvas.remove(canvas.getActiveObject());
+                //this would remove the currently active object on stage,
+            }
+        });
+
+        jQuery(document).on('click', "#bringToFront", function () {
+            if (canvas.getActiveObject()) {
+                canvas.bringToFront(canvas.getActiveObject());
+            }
+        });
+
+        jQuery(document).on('click', "#sendToBack", function () {
+            if (canvas.getActiveObject()) {
+                canvas.sendToBack(canvas.getActiveObject());
+                canvas.setActiveObject(falseActive);
+                canvas.requestRenderAll();
+            }
+        });
+
+
+        var canvas2 = new fabric.Canvas('canvas2', { selection: false, allowTouchScrolling: true });
+        var img2 =
+            fabric.Image.fromURL('../img/maykaW2.png', function (img2) {
+                img2.scaleToWidth(canvas2.width);
+                img2.scaleToHeight(canvas2.height);
+                canvas2.setBackgroundImage(img2);
+                canvas2.requestRenderAll();
+            });
+
+        $(canvas2).ready(function () {
+            if (window.innerWidth > 550) {
+                console.log(window.innerWidth);
+                //канвас размеры
+                canvas2.setHeight(600);
+                canvas2.setWidth(520);
+                canvas2.renderAll();
+
+                img = fabric.Image.fromURL('../img/maykaW2.png', function (img) {
+                    img.scaleToWidth(canvas2.width);
+                    img.scaleToHeight(canvas2.height);
+                    canvas2.setBackgroundImage(img);
+                    canvas2.requestRenderAll();
+                });
+            }
+        });
+        
+        // Ограничение рамок
+        var boundingBox2 = new fabric.Rect({
+            fill: "rgba(0,0,0,0)",
+            stroke: "rgba(179, 173, 173, 1)",
+            top: 50,
+            left: 70,
+            width: 120,
+            height: 200,
+            hasBorders: false,
+            hasControls: false,
+            lockMovementX: true,
+            lockMovementY: true,
+            evented: false
+        });
+
+        $(document).ready(function () {
+            if (window.innerWidth > 550) {
+                console.log("bounding");
+                boundingBox2.top = 100;
+                boundingBox2.left = 137;
+                boundingBox2.width = 240;
+                boundingBox2.height = 400;
+
+            }
+        });
+
+        canvas2.add(boundingBox2);
+
+        var disableScroll2 = function () {
+            canvas2.allowTouchScrolling = false;
+        };
+
+        var enableScroll2 = function () {
+            canvas2.allowTouchScrolling = true;
+        };
+
+        canvas2.on('object:moving', disableScroll2);
+        canvas2.on('object:scaling', disableScroll2);
+        canvas2.on('object:rotating', disableScroll2);
+        canvas2.on('mouse:up', enableScroll2);
+
+        // Обманка
+        var falseActive2 = new fabric.IText('falseActive', {
+            fontFamily: 'Lobster',
+            fontSize: 20,
+            left: 550,
+            top: 110,
+            fill: 'black'
+        });
+        canvas2.add(falseActive2);
+
+        var select2 = document.getElementById("fontFamily2");
+
+        fonts.forEach(function (font) {
+            var option = document.createElement('option');
+            option.innerHTML = font;
+            option.value = font;
+            option.style.fontFamily = font;
+            select2.appendChild(option);
+            var textbox = new fabric.Textbox('Русский текст', {
+                fontFamily: font,
+                fontSize: 20,
+                left: -1000,
+                top: 100,
+                fill: 'green'
+            });
+            canvas2.add(textbox);
+
+        })
+
+        function onAddText2() {
+            var textbox = new fabric.IText('Русский текст', {
+                fontFamily: 'Lobster',
+                fontSize: 20,
+                left: 140,
+                top: 110,
+                fill: 'black'
+            });
+            canvas2.add(textbox).setActiveObject(textbox);
+        }
+
+        function onEditColor2(color) {
+            console.log(color);
+            var active = canvas2.getActiveObject();
+            active.fill = color;
+            active.dirty = true;
+            canvas2.remove(active);
+            canvas2.add(active);
+            canvas2.setActiveObject(active);
+        }
+
+        var fontControl2 = $('#fontFamily2');
+        $(document.body).on('change', '#fontFamily2', function () {
+            var active = canvas2.getActiveObject();
+            active.set("fontFamily", this.value);
+
+            canvas2.requestRenderAll();
+        });
+
+        function onFileSelected2(event) {
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var img = new Image();
+                img.src = event.target.result;
+
+                //Создание тега хидден для отправки на сервер
+                $('#photosHidden').append("<input type='hidden' name='imagesAll' value='" + img.src + "'/>");
+
+                img.onload = function () {
+                    if (window.innerWidth < 550) {
+                        var image = new fabric.Image(img);
+                        image.set({
+                            left: 80,
+                            top: 60,
+                            padding: 10,
+                            cornersize: 10,
+                            scaleX: 100 / img.width,
+                            scaleY: 100 / ((img.width - img.height) + img.height)
+                        });
+                        canvas2.add(image).setActiveObject(image);
+                        canvas2.bringForward(image);
+                    }
+                    else {
+                        var image = new fabric.Image(img);
+                        image.set({
+                            left: 150,
+                            top: 110,
+                            padding: 10,
+                            cornersize: 10,
+                            scaleX: 200 / img.width,
+                            scaleY: 200 / ((img.width - img.height) + img.height)
+                        });
+                        canvas2.add(image).setActiveObject(image);
+                        canvas2.bringForward(image);
+                    }
+                }
+
+
+
+            }
+            reader.readAsDataURL(selectedFile);
+        }
+
+        jQuery(document).on('click', "#deleteBtn2", function () {
+            if (canvas2.getActiveObject()) {
+                canvas2.remove(canvas2.getActiveObject());
+            }
+        });
+
+        jQuery(document).on('click', "#bringToFront2", function () {
+            if (canvas2.getActiveObject()) {
+                canvas2.bringToFront(canvas2.getActiveObject());
+            }
+        });
+
+        jQuery(document).on('click', "#sendToBack2", function () {
+            if (canvas2.getActiveObject()) {
+                canvas2.sendToBack(canvas2.getActiveObject());
+                canvas2.setActiveObject(falseActive2);
+                canvas2.requestRenderAll();
+            }
+        });
+
+
+
+        function formRequest() {
+            boundingBox.stroke = "rgba(0,0,0,0)";
+            boundingBox2.stroke = "rgba(0,0,0,0)";
+            document.getElementById('my_hidden').value = canvas.toDataURL();
+            document.getElementById('my_hiddenBack').value = canvas2.toDataURL();
+            $('#formRedactor').submit();
+        }
+    </script>
+    <script>
+        function Size(id) {
+            var sizeRadio = '#' + id;
+            $(sizeRadio).prop("checked", true);
+        }
+
+        var checkboxClass = '.block8S';
+        $(checkboxClass).on('click', function (evt) {
+            var $box = $(this);
+            var group = "label[class='block8S']";
+            $(group).css("background", '#f8f8f8').css("color", "#898989");
+            $box.css("background", '#e5097f').css("color", "white");
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () { // вся мaгия пoсле зaгрузки стрaницы
+            $('a#go').click(function (event) { // лoвим клик пo ссылки с id="go"
+                event.preventDefault(); // выключaем стaндaртную рoль элементa
+                $('#overlay').fadeIn(400, // снaчaлa плaвнo пoкaзывaем темную пoдлoжку
+                    function () { // пoсле выпoлнения предъидущей aнимaции
+                        if (window.innerWidth < 550) {
+                            $('#modal_formM')
+                                .css('display', 'block') // убирaем у мoдaльнoгo oкнa display: none;
+                                .animate({ opacity: 1, top: '50%' }, 200); // плaвнo прибaвляем прoзрaчнoсть oднoвременнo сo съезжaнием вниз
+                        }
+                        else {
+                            $('#modal_form')
+                                .css('display', 'block') // убирaем у мoдaльнoгo oкнa display: none;
+                                .animate({ opacity: 1, top: '50%' }, 200); // плaвнo прибaвляем прoзрaчнoсть oднoвременнo сo съезжaнием вниз
+                        }
+                    });
+            });
+            /* Зaкрытие мoдaльнoгo oкнa, тут делaем тo же сaмoе нo в oбрaтнoм пoрядке */
+            $('#modal_close, #overlay').click(function () { // лoвим клик пo крестику или пoдлoжке
+                $('#modal_form')
+                    .animate({ opacity: 0, top: '45%' }, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+                        function () { // пoсле aнимaции
+                            $(this).css('display', 'none'); // делaем ему display: none;
+                            $('#overlay').fadeOut(400); // скрывaем пoдлoжку
+                        }
+                    );
+                $('#modal_formM')
+                    .animate({ opacity: 0, top: '45%' }, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+                        function () { // пoсле aнимaции
+                            $(this).css('display', 'none'); // делaем ему display: none;
+                            $('#overlay').fadeOut(400); // скрывaем пoдлoжку
+                        }
+                    );
+            });
+        });
+    </script>
+}

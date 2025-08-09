@@ -1,0 +1,51 @@
+﻿@model mayka.Models.MClient
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Клиенты</h2>
+
+<div>
+    <h4>Удаление</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ф.И.О. клиента
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            Город(Область)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            Адрес
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            Телефон
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            Email
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад</a>
+    </form>
+</div>

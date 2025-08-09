@@ -1,0 +1,45 @@
+﻿@model mayka.Models.MPurchase
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Заказы</h2>
+
+<div>
+    <h4>Удаление</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Дата создания
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DatePurchase)
+        </dd>
+        <dt>
+            Дата прибытия
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateDelivery)
+        </dd>
+        <dt>
+            Выполненный?
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Completed)
+        </dd>
+        <dt>
+            Ф.И.О. клиента
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Client.FullName)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад</a>
+    </form>
+</div>

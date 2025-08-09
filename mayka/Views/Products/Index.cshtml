@@ -1,0 +1,90 @@
+﻿@model IEnumerable<mayka.Models.MProduct>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+<h2>Продукты</h2>
+
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Тип
+            </th>
+            <th>
+                Описание
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Цена без скидки(будет зачеркнуто)
+            </th>
+            <th>
+                Валюта
+            </th>
+            <th>
+                Фото
+            </th>
+            <th>
+                Заднее фото
+            </th>
+            <th>
+                Категория
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                @if (item.Img != null)
+                {
+                    <img src="~/Images/@item.Img" width="100" />
+                }
+            </td>
+            <td>
+                @if (item.ImgBack != null)
+                {
+                    <img src="~/Images/@item.ImgBack" width="100" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Title)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

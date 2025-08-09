@@ -1,0 +1,238 @@
+﻿@{
+    ViewData["Title"] = "Корзина";
+}
+
+<div style="margin-top: 25px;">
+    <a asp-action="Index" asp-controller="Main" class="link2S"><i class="fab fa-elementor"></i> Назад в каталог</a>
+    <a asp-action="Index" asp-controller="Main" class="link3S">Главная</a> —
+    <a href="#" class="link3S">Корзина</a>
+
+    @*Новый дизайн*@
+    <form asp-action="End" asp-controller="Main">
+        <div class="row" id="row1" style="margin-top: 10px;">
+            <div class="col-lg-8" id="cart1">
+                <div class="block25S">
+                    <div class="block26S">
+                        <label class="label9S"></label>
+                        <label class="label8S">Ваш заказ</label>
+                    </div>
+                    @if (ViewBag.cart != null)
+                    {
+                        @if (ViewBag.cart.Count > 0)
+                        {
+                            @for (int i = 0; i < ViewBag.cart.Count; i++)
+                            {
+                                <input type="hidden" name="cartItem[@i].Product.Id" value="@ViewBag.cart[i].Product.Id" />
+                                <input type="hidden" name="cartItem[@i].Product.Title" value="@ViewBag.cart[i].Product.Title" />
+                                <input type="hidden" name="cartItem[@i].Product.Price" value="@ViewBag.cart[i].Product.Price" />
+                                <div class="block27S">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            @if (ViewBag.cart[i].Product.Img != null)
+                                            {
+                                                <img class="img4S" src="~/Images/@ViewBag.cart[i].Product.Img" alt="Принты на футболки" />
+                                            }
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="label11S">
+                                                <a asp-action="Details" asp-controller="Main" asp-route-id="@ViewBag.cart[i].Product.Id">
+                                                    @ViewBag.cart[i].Product.Title
+                                                </a>
+                                            </label>
+                                            <label class="label10S">
+                                                Артикул -
+                                                @ViewBag.cart[i].Product.Id
+                                            </label>
+                                            <br />
+                                            <label class="label12S">
+                                                Тип - @ViewBag.cart[i].Product.Type
+                                            </label>
+                                            <br />
+                                            <label class="label12S">
+                                                Размер - 
+                                            </label>
+                                            <select name="cartItem[@i].Size">
+                                                <option selected value="@ViewBag.cart[i].Size">
+                                                    @ViewBag.cart[i].Size
+                                                </option>
+                                                <option value="XXS">
+                                                    XXS
+                                                </option>
+                                                <option value="XS">
+                                                    XS
+                                                </option>
+                                                <option value="S" >
+                                                    S
+                                                </option>
+                                                <option value="M">
+                                                    M
+                                                </option>
+                                                <option value="L">
+                                                    L
+                                                </option>
+                                                <option value="XL">
+                                                    XL
+                                                </option>
+                                                <option value="2XL">
+                                                    2XL
+                                                </option>
+                                                <option value="3XL">
+                                                    3XL
+                                                </option>
+                                                <option value="4XL">
+                                                    4XL
+                                                </option>
+                                            </select>
+                                           
+                                            <br />
+                                            <label class="label12S">
+                                                Цвет - @ViewBag.cart[i].Product.Color
+                                            </label>
+                                        </div>
+                                        <div class="col-3">
+                                            @if (@ViewBag.cart[i].Product.Price != 0)
+                                            {
+                                                <label class="label7S">
+                                                    @ViewBag.cart[i].Product.Price @ViewBag.cart[i].Product.Currency
+                                                </label>
+                                            }
+                                            else
+                                            {
+                                                <label class="label7S" style="font-size: 12px">
+                                                    Точная цена будет определена после осмотра вашего дизайна
+                                                </label>
+                                            }
+                                            <a asp-controller="cart" asp-action="double" asp-route-id="@ViewBag.cart[i].Product.Id" asp-route-size="@ViewBag.cart[i].Size">
+                                                Дублировать
+                                            </a>
+                                        </div>
+                                        <div class="col-1">
+                                            <a asp-controller="cart" asp-action="remove" asp-route-id="@ViewBag.cart[i].Product.Id" asp-route-size="@ViewBag.cart[i].Size"><i class="fas fa-times fa-lg"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <input type="button" id="endButton" value="Оформить" onclick="End()" class="btn btn-warning" style="color: white;width: 260px;" />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="label12S" style="color: black;">
+                                        Итого:
+                                    </label>
+                                    &nbsp;
+                                    <label class="label7S" style="margin: 0px;">
+                                        @ViewBag.total тг
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <h3> Корзина пуста </h3>
+                        }
+                    }
+                    else
+                    {
+                        <h3> Корзина пуста </h3>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4" id="delivery1">
+                <div class="block34S">
+                    <div></div>
+                    <i class="fas fa-shopping-basket fa-2x iconS"></i>
+                    <br />
+                    <label> Вы заказываете товар </label>
+                </div>
+                <div class="block34S">
+                    <i class="fas fa-truck fa-2x iconS"></i>
+                    <br />
+                    <label>  Товар доставляют до дома </label>
+                </div>
+                <div class="block34S">
+                    <i class="fas fa-coins fa-2x iconS"></i>
+                    <br />
+                    <label>  После полного осмотра вы платите за товар </label>
+                </div>
+            </div>
+            <div class="col-lg-8" id="delivery2" style="display: none; border: 2px dashed #efeded; margin-top: 10px;">
+                <label class="label6S">
+                    Способы доставки
+                </label>
+                <br>
+                <label>
+                    Получить заказ вы можете одним из перечисленных способов:
+                </label>
+                <br>
+                <ul style="list-style: circle;">
+                    <li><b>Доставка по Астане 500 тг</b> доставляется до двери в течении дня;</li>
+                    <li><b>Курьерская доставка KazPost по всему Казахстану</b> (5-7 дней) доставка до двери - 1000тг;</li>
+                </ul>
+
+                <label class="label6S">
+                    Способ оплаты
+                </label>
+                <br>
+                <ul style="list-style: circle;">
+                    <li><b>Наложенный платеж</b> (оплата при получении).</li>
+                </ul>
+            </div>
+
+
+            <div class="col-lg-4" id="delivery3" style="display: none; margin-top: 10px;">
+                <div class="block34S">
+                    <div></div>
+                    <i class="fas fa-shopping-basket fa-2x iconS"></i>
+                    <br />
+                    <label> Вы заказываете товар </label>
+                </div>
+                <div class="block34S">
+                    <i class="fas fa-truck fa-2x iconS"></i>
+                    <br />
+                    <label>  Товар доставляют до дома </label>
+                </div>
+                <div class="block34S">
+                    <i class="fas fa-coins fa-2x iconS"></i>
+                    <br />
+                    <label>  После полного осмотра вы платите за товар </label>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <a asp-controller="Main" asp-action="Index">Продолжить покупки</a> &nbsp;
+    </form>
+
+</div>
+
+@section Scripts {
+    <script>
+    function End() {
+        // Уменьшение корзины
+        var el = document.getElementById('cart1');
+        el.classList.remove('col-lg-8');
+        el.classList.add('col-lg-7');
+
+        // Удаление вкладки доставка
+        var el = document.getElementById('delivery1');
+        el.remove();
+
+        $('#delivery2').css("display", "inline");
+        $('#delivery3').css("display", "inline");
+
+        // Удаление кнопки Оформить
+        $('#endButton').remove();
+        // Добавление формы
+        $('#row1').append('<div class="col-lg-5 order-first" style="padding-right: 0;" id="dynamicContentContainer"></div>');
+        $.get('@Url.Action("End", "Main")', function (content) {
+            $("#dynamicContentContainer").html(content);
+            $("html,body").animate({ scrollTop: $("#dynamicContentContainer").offset().top }, 1000);
+        });
+        }
+       
+    </script>
+
+
+}

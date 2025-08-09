@@ -1,0 +1,64 @@
+﻿@model IEnumerable<mayka.Models.MComment>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Index";
+}
+
+<h2>Отзывы</h2>
+
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Контент
+            </th>
+            <th>
+                Автор
+            </th>
+            <th>
+                Дата
+            </th>
+            <th>
+                Фото
+            </th>
+            <th>
+                Опубликованный
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @if (item.Img != null)
+                    {
+                        <img src="~/Images/@item.Img" width="100" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Public)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

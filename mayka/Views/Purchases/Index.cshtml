@@ -1,0 +1,51 @@
+﻿@model IEnumerable<mayka.Models.MPurchase>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Заказы";
+}
+
+<h2>Заказы</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Дата заказа
+            </th>
+            <th>
+                Дата закрытия
+            </th>
+            <th>
+                Завершенный
+            </th>
+            <th>
+                Ф.И.О клиента
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePurchase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateDelivery)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Completed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.FullName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

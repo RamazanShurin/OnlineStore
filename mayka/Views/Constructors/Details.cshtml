@@ -1,0 +1,56 @@
+﻿@model mayka.Models.MConstructor
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Details";
+}
+
+<h2>Конструкторы</h2>
+
+<div>
+    <h4>Подробно</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Фото
+        </dt>
+        <dd>
+            @if (Model.FullImg != null)
+            {
+                var base64 = Convert.ToBase64String(Model.FullImg);
+                var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                <img src="@imgSrc" width="100" />
+            }
+        </dd>
+        <dt>
+            Заднее фото
+        </dt>
+        <dd>
+            @if (Model.FullImgBack != null)
+            {
+                var base64 = Convert.ToBase64String(Model.FullImgBack);
+                var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                <img src="@imgSrc" width="100" />
+            }
+        </dd>
+        <dt>
+            Шрифты
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Font)
+        </dd>
+    </dl>
+    Фотографии:
+    @if (ViewBag.Photos != null)
+    {
+        @foreach (var item in ViewBag.Photos)
+        {
+            var base64 = Convert.ToBase64String(item.Img);
+            var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+            <img src="@imgSrc" width="100" />
+        }
+    }
+</div>
+<div>
+    <a asp-action="Index">Назад</a>
+</div>

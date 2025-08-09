@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Авторизация";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+@model mayka.Models.LoginModel
+<h3 align="center">Авторизация</h3>
+<br />
+<form asp-action="Login" asp-controller="Account" asp-antiforgery="true">
+    <hr />
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+        <input asp-for="Email" type="email" class="form-control" placeholder="Email" required autofocus />
+        <span asp-validation-for="Email" />
+    </div>
+    <br />
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+                <i class="fas fa-key"></i>
+            </div>
+        </div>
+        <input asp-for="Password" class="form-control" placeholder="Пароль">
+        <span asp-validation-for="Password" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Войти</button>
+    <br />
+</form>
+

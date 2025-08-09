@@ -1,0 +1,81 @@
+﻿@model mayka.Models.MProduct
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Продукты</h2>
+
+<h4>Удаление</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Название
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            Тип
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            Описание
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            Цена
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            Цена без скидки(будет зачеркнуто)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+        <dt>
+            Валюта
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+        <dt>
+            Фото
+        </dt>
+        <dd>
+            @if (Model.Img != null)
+            {
+                <img src="~/Images/@Model.Img" width="100" />
+            }
+        </dd>
+        <dt>
+            Заднее фото
+        </dt>
+        <dd>
+            @if (Model.ImgBack != null)
+            {
+                <img src="~/Images/@Model.ImgBack" width="100" />
+            }
+        </dd>
+        <dt>
+            Категория
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад</a>
+    </form>
+</div>

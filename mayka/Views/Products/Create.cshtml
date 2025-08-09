@@ -1,0 +1,73 @@
+﻿@model mayka.Models.MProduct
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Create";
+}
+
+<h2>Продукты</h2>
+
+<h4>Добавить</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Название</label>
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label">Тип</label>
+                <input asp-for="Type" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Composition" class="control-label">Состав(Хлопок, Сэндвич)</label>
+                <input asp-for="Composition" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Описание</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Color" class="control-label">Цвет продукта</label>
+                <input asp-for="Color" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Цена</label>
+                <input asp-for="Price" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount" class="control-label">Цена без скидки(будет зачеркнуто)</label>
+                <input asp-for="Discount" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency" class="control-label">Валюта</label>
+                <input asp-for="Currency" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="image" class="control-label">Фото</label>
+                <input type="file" name="image" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="imageBack" class="control-label">Заднее фото</label>
+                <input type="file" name="imageBack" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Категория</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Public" class="control-label">Выводить на главной странице?</label>
+                <input asp-for="Public" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+

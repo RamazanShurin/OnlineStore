@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"]) - MyMayka kz</title>
+    <link href="~/fonts/robotocondensed.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="~/css/constructor.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
+    <style>
+        table {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="    background: rgb(155, 47, 83);">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Main"><img src="~/img/logo5x250x50.png" alt="Принты на футболки"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar1">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Продукты</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <a class="dropdown-item" asp-action="Index" asp-controller="Products">Продукты</a>
+                            <a class="dropdown-item" asp-action="Index" asp-controller="Constructors">Пользовательские</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Categories">Категории</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Purchases">Заказы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Clients">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Comments">Отзывы</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container" style="min-height: 50vh;">
+        <br />
+    @RenderBody()
+        </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - mymayka
+        </div>
+    </footer>
+
+
+
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="~/lib/fontfaceobserver/fontfaceobserver.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/js/fabric.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (window.innerWidth > 1000) {
+                $('body').append('<div id="go-top" title="Вверх"><i class="fas fa-angle-up"></i><br>Наверх</div>');
+            }
+        });
+
+        $(function () {
+            $.fn.scrollToTop = function () {
+                $(this).hide().removeAttr("href");
+                if ($(window).scrollTop() >= "250") $(this).fadeIn("slow")
+                var scrollDiv = $(this);
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() <= "250") $(scrollDiv).fadeOut("slow")
+                    else $(scrollDiv).fadeIn("slow")
+                });
+                $(this).click(function () {
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, "slow")
+                })
+            }
+        });
+
+        $(function () {
+            $("#go-top").scrollToTop();
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

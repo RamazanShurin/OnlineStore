@@ -1,0 +1,230 @@
+﻿@model mayka.Models.MProduct
+@{
+    ViewData["Title"] = Model.Title;
+}
+<div style="margin-top: 25px;">
+    <a asp-action="Index" class="link2S"><i class="fab fa-elementor"></i> Назад в каталог</a>
+    <a asp-action="Index" class="link3S">Главная</a> —
+    <a href="#" class="link3S">@Model.Type</a> —
+    <a href="#" class="link3S">@Model.Category.Title</a>
+    <hr />
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-lg-6">
+            @if (Model.Img != null)
+            {
+                <div class="block6S" id="image1">
+
+
+                    <img src="~/Images/@Model.Img" alt="@Model.Title" class="img6S" />
+                    <div class="block38S" onclick="imageSelect(1)" style="border: 2px solid #9b2f53; background-image: url(/Images/@Model.Img);">
+                    </div>
+                    <div class="block39S" onclick="imageSelect(2)" style="background-image: url(/Images/@Model.ImgBack);">
+                    </div>
+                </div>
+                <div class="block6S" id="image2" style="display: none;">
+                    <img src="~/Images/@Model.ImgBack" alt="@Model.Title" class="img6S" />
+                    <div class="block38S" onclick="imageSelect(1)" style="background-image: url(/Images/@Model.Img);">
+                    </div>
+                    <div class="block39S" onclick="imageSelect(2)" style="border: 2px solid #9b2f53; background-image: url(/Images/@Model.ImgBack);">
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-6">
+            <div class="block7S">
+                <form asp-action="Buy" asp-controller="Cart">
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="block9S">
+                                <label class="label4S">@Model.Title</label>
+                                <br>
+                                <label class="label5S">Артикул: @Model.Id</label>
+                                <br>
+                                <label class="label6S">Тип кружки: Стандартный</label>
+                                Классическая белая кружка из керамики. Отлично подойдет в качестве подарка для родных и близких.
+                            </div>
+                            
+                        </div>
+                        <div class="col-5">
+                            <div class="block9S">
+                                <label class="label23S">
+                                    @Model.Discount @Model.Currency.
+                                </label>
+                                <label class="label7S">
+                                    @Model.Price @Model.Currency.
+                                </label>
+                            </div>
+
+                            <input type="hidden" value="@Model.Id" name="id" />
+                            <input type="submit" value="В корзину" class="btn btn-success buttonS" />
+                        </div>
+                    </div>
+                </form>
+                @if (ViewBag.OtherProducts.Count > 0)
+                {
+                    <hr />
+                    <label class="label16S">Другие похожие товары:</label>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-1" style="padding-top: 45px; ">
+                            <button class="prev"></button>
+                        </div>
+                        <div class="col-9" style="padding: 0;">
+                            <div class="container2">
+                                <ul class="carousel2">
+                                    @foreach (var item in ViewBag.OtherProducts)
+                                    {
+                                    <li>
+                                        @if (item.Type != "Кружка")
+                                        {
+                                            <a asp-action="Details" asp-controller="Main" asp-route-id="@item.Id">
+                                                @if (item.Img != null)
+                                                {
+                                                    <img src="~/Images/@item.Img" class="img7S" />
+                                                }
+                                                <br />
+                                                <label class="label5S">@item.Title</label>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="DetailsCup" asp-controller="Main" asp-route-id="@item.Id">
+                                                @if (item.Img != null)
+                                                {
+                                                    <img src="~/Images/@item.Img" class="img7S" />
+                                                }
+                                                <br />
+                                                <label class="label5S">@item.Title</label>
+                                            </a>
+                                        }
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-1" style="padding-top: 45px;">
+                            <button class="next">></button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="block11S">
+        <div class="block12S" id="block12-2" style="background: white; border-bottom: none;">
+            Доставка и оплата
+        </div>
+        <div class="block13S" id="block13-2" >
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="label6S">
+                        Способы доставки
+                    </label>
+                    <br>
+                    <label>
+                        Получить заказ вы можете одним из перечисленных способов:
+                    </label>
+                    <br>
+                    <ul style="list-style: circle;">
+                        <li><b>Доставка по Астане 500 тг</b> доставляется до двери в течении дня;</li>
+                        <li><b>Доставка до почтового отделения KazPost по всему Казахстану</b> (5-7 дней) - 500-800тг;</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <label class="label6S">
+                        Способ оплаты
+                    </label>
+                    <br>
+                    <ul style="list-style: circle;">
+                        <li><b>Наложенный платеж</b> (оплата при получении).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function information(id) {
+            var block12 = '#block12-' + id;
+            var block13 = '#block13-' + id;
+            if (id == 1) {
+                var other12 = '#block12-2';
+                var other13 = '#block13-2';
+            } else {
+                var other12 = '#block12-1';
+                var other13 = '#block13-1';
+            }
+            $(block12).css('border-bottom', 'none');
+            $(block12).css('background', 'white');
+            $(block13).css('display', 'block');
+            $(other12).css('border-bottom', '1px solid #d0d7dd');
+            $(other12).css('background', '#f8f8f8');
+            $(other13).css('display', 'none');
+        }
+    </script>
+    <script>
+        function Size(id) {
+            var sizeRadio = '#' + id;
+            $(sizeRadio).prop("checked", true);
+        }
+
+        var checkboxClass = '.block8S';
+        $(checkboxClass).on('click', function (evt) {
+            var $box = $(this);
+            var group = "label[class='block8S']";
+            $(group).css("background", '#f8f8f8').css("color", "#898989");
+            $box.css("background", '#9b2f53').css("color", "white");
+        });
+    </script>
+
+   
+    <script>
+        // Выбор стороны кружки
+        function imageSelect(id) {
+            if (id == 1) {
+                $('#image1').css('display', 'block');
+                $('#image2').css('display', 'none');
+            } else {
+                $('#image2').css('display', 'block');
+                $('#image1').css('display', 'none');
+            }
+        }
+
+    </script>
+    <script src="~/js/my_carousel.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Размер под мобильную версию
+            if (window.innerWidth > 550) {
+                $('.img6S').css("width", "380px");
+                $('.container2').myCarousel({
+                    btnNext: '.next',
+                    btnPrev: '.prev',
+                    visible: 4,
+                    rotateBy: 1
+                });
+            }
+            else {
+                $('.container2').myCarousel({
+                    btnNext: '.next',
+                    btnPrev: '.prev',
+                    visible: 2,
+                    rotateBy: 1
+                });
+            }
+
+        });
+    </script>
+    <script>
+        $(window).on('load', function () {
+            $preloader = $('.loaderArea2'),
+                $loader = $preloader.find('.loader');
+            $loader.fadeOut();
+            $preloader.delay(350).fadeOut('slow');
+        });
+    </script>
+}

@@ -1,0 +1,84 @@
+#glassbox {
+    background: white;
+    border: 1px solid black;
+    height: 700px;
+    margin: 30px auto auto auto;
+    position: relative;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.element {
+    border: 1px #000 solid;
+    cursor: move;
+    width: 200px;
+    height: 100px;
+    min-width: 50px;
+    min-height: 25px;
+    top: 100;
+    left: 165px;
+    z-index: 1;
+}
+
+.blockC {
+    color: wheat;
+    position: absolute;
+    right: -12px;
+    top: 0;
+    cursor: pointer;
+}
+
+.block2C {
+    color: wheat;
+    position: absolute;
+    right: -12px;
+    bottom: 0;
+    cursor: nw-resize;
+}
+
+.block3C {
+    color: wheat;
+    position: absolute;
+    left: -12px;
+    top: 0;
+    cursor: pointer;
+}
+
+.marker {
+    background: #ED1C24;
+    height: 2px;
+    right: 0;
+    position: absolute;
+    top: 35px;
+    width: 7px
+}
+
+.pointer {
+    height: 72px;
+    position: absolute;
+    top: 82px;
+    width: 72px;
+    border: 1px solid red;
+    left: 100px;
+}
+
+.block4C {
+    height: 130%;
+    width: 130%;
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    border: 2px dashed wheat;
+    z-index: 0;
+}
+
+.canvasC {
+    border: 1px dashed blue;
+    position: absolute;
+    width: 225px;
+    height: 414px;
+    left: 251px;
+    top: 104px;
+    touch-action: none;
+    user-select: none;
+}

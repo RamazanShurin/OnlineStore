@@ -1,0 +1,48 @@
+﻿@model mayka.Models.MComment
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Create";
+}
+
+<h2>Отзывы</h2>
+
+<h4>Добавить</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Content" class="control-label">Контент</label>
+                <input asp-for="Content" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label">Автор</label>
+                <input asp-for="Author" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label">Дата</label>
+                <input asp-for="Date" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="image" class="control-label">Фото</label>
+                <input type="file" name="image" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Public" /> Опубликованный
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+

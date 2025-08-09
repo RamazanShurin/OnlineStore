@@ -1,0 +1,494 @@
+﻿@model mayka.Models.MProduct
+@{
+    ViewData["Title"] = Model.Title;
+}
+<div style="margin-top: 25px;">
+    <a asp-action="Index" class="link2S"><i class="fab fa-elementor"></i> Назад в каталог</a>
+    <a asp-action="Index" class="link3S">Главная</a> —
+    <a href="#" class="link3S">@Model.Type</a> —
+    <a href="#" class="link3S">@Model.Category.Title</a>
+    <hr />
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-lg-6">
+            @if (Model.Img != null)
+            {
+                <div class="block6S" id="image1">
+
+
+                    <img src="~/Images/@Model.Img" alt="@Model.Title" class="img6S" />
+                    <div class="block44S"></div>
+                    <div class="block37S"></div>
+                    <div class="block38S" onclick="imageSelect(1)" style="border: 2px solid #9b2f53; background-image: url(/Images/@Model.Img);">
+                    </div>
+                    <div class="block39S" onclick="imageSelect(2)" style="background-image: url(/Images/@Model.ImgBack);">
+                    </div>
+                </div>
+                <div class="block6S" id="image2" style="display: none;">
+                    <img src="~/Images/@Model.ImgBack" alt="@Model.Title" class="img6S" />
+                    <div class="block44S"></div>
+                    <div class="block37S"></div>
+                    <div class="block38S" onclick="imageSelect(1)" style="background-image: url(/Images/@Model.Img);">
+                    </div>
+                    <div class="block39S" onclick="imageSelect(2)" style="border: 2px solid #9b2f53; background-image: url(/Images/@Model.ImgBack);">
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-6">
+            <div class="block7S">
+                <form asp-action="Buy" asp-controller="Cart">
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="block9S">
+                                <label class="label4S">@Model.Title</label>
+                                <br>
+                                <label class="label5S">Артикул: @Model.Id</label>
+                                <br>
+                                <label class="label6S">Размеры:</label>
+                                <a href="#" id="go" class="link4S">(Узнать размер)</a>
+                            </div>
+                            <label class="block8S" onclick="Size('Ssize')">S</label>
+                            <input style="display: none;" type="radio" value="S" id="Ssize" name="Size" required />
+                            <label class="block8S" style="color: white; background: #9b2f53" onclick="Size('Msize')">M</label>
+                            <input style="display: none;" type="radio" value="M" id="Msize" name="Size" checked />
+                            <label class="block8S" onclick="Size('Lsize')">L</label>
+                            <input style="display: none;" type="radio" value="L" id="Lsize" name="Size" />
+                            <label class="block8S" onclick="Size('XLsize')">XL</label>
+                            <input style="display: none;" type="radio" value="XL" id="XLsize" name="Size" />
+                            <label class="block8S" onclick="Size('XXLsize')">XXL</label>
+                            <input style="display: none;" type="radio" value="XXL" id="XXLsize" name="Size" />
+                            <label class="block8S" onclick="Size('XXXLsize')">XXXL</label>
+                            <input style="display: none;" type="radio" value="XXXL" id="XXXLsize" name="Size" />
+                        </div>
+                        <div class="col-5">
+                            <div class="block9S">
+                                <label class="label23S">
+                                    @Model.Discount @Model.Currency.
+                                </label>
+                                <label class="label7S">
+                                    @Model.Price @Model.Currency.
+                                </label>
+                            </div>
+
+                            <input type="hidden" value="@Model.Id" name="id" />
+                            <input type="submit" value="В корзину" class="btn btn-success buttonS" />
+                        </div>
+                    </div>
+                </form>
+                @if (ViewBag.OtherProducts.Count > 0)
+                {
+                    <hr />
+                    <label class="label16S">Другие похожие товары:</label>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-1" style="padding-top: 45px; ">
+                            <button class="prev"></button>
+                        </div>
+                        <div class="col-9" style="padding: 0;">
+                            <div class="container2">
+                                <ul class="carousel2">
+                                    @foreach (var item in ViewBag.OtherProducts)
+                                    {
+                                        <li>
+                                            @if (item.Type != "Кружка")
+                                            {
+                                                <a asp-action="Details" asp-controller="Main" asp-route-id="@item.Id">
+                                                    @if (item.Img != null)
+                                                    {
+                                                        <img src="~/Images/@item.Img" class="img7S" />
+                                                    }
+                                                    <br />
+                                                    <label class="label5S">@item.Title</label>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="DetailsCup" asp-controller="Main" asp-route-id="@item.Id">
+                                                    @if (item.Img != null)
+                                                    {
+                                                        <img src="~/Images/@item.Img" class="img7S" />
+                                                    }
+                                                    <br />
+                                                    <label class="label5S">@item.Title</label>
+                                                </a>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-1" style="padding-top: 45px;">
+                            <button class="next">></button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="block11S">
+        <div class="block12S" id="block12-1" style="border-bottom: none;" onclick="information(1)">
+            Информация о заказе
+        </div>
+        <div class="block12S" id="block12-2" style="background-color: #f8f8f8;" onclick="information(2)">
+            Доставка и оплата
+        </div>
+        <div class="block13S" id="block13-1">
+            <label class="label4S">
+                @Model.Type
+            </label>
+            <div class="row">
+                @if (Model.Composition == "Сэндвич")
+                {
+                    <div class="col-lg-6">
+                        <label class="label6S">
+                            Описание и состав
+                        </label>
+                        <br>
+
+
+                        <label>
+                            Белоснежная футболка из дышащей ткани, что обеспечивает комфортное ношение - не стесняет движений.
+                            Продукт повышенного качества, который не растягивается, не желтеет, выдерживает многократные стирки и отлично сохраняет цвет рисунка.
+                            <br>
+                            <b>Тип футболки</b>: Футболка сэндвич.
+                            <br>
+                            <b>Цвет</b>: @Model.Color.
+                            <br>
+                            <b>Ткань</b>: Двухслойный материал, внутренний слой - Х/Б, наружный полиэстер.
+                            <br>
+                            <b>Воротник</b>: О-ворот.
+                            <br>
+                            <b>Особенности:</b>: Поверхность материала гладкая, внутренний слой приятный для тела.
+                        </label>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="label6S">
+                            Рекомендации по уходу
+                        </label>
+                        <br>
+                        <label>
+                            Изделие будет дольше сохранять привлекательный внешний вид и сочность и яркость красок если придерживаться правил эксплуатации:
+                        </label>
+                        <br>
+                        <ul style="list-style: circle;">
+                            <li>Рекомендуется ручная стирка, но допускается стирка в стиральной машине в щадящем режиме при температуре воды до 30°C.</li>
+                            <li>Не отбеливать</li>
+                            <li>Гладить при низкой температуре(режим "Шелк") </li>
+                            <li>Не подвергать химической очистке</li>
+                            <li>Не сушить в барабане</li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-lg-6">
+                        <label class="label6S">
+                            Описание и состав
+                        </label>
+                        <br>
+
+
+                        <label>
+                            Классическая футболка из дышащей ткани, что обеспечивает комфортное ношение - не стесняет движений.
+                            Продукт повышенного качества, который не растягивается, не желтеет.
+                            <br>
+                            <b>Тип футболки</b>: Классическая хлопковая футболка.
+                            <br>
+                            <b>Цвет</b>: @Model.Color.
+                            <br>
+                            <b>Ткань</b>: 100% Х\Б.
+                            <br>
+                            <b>Воротник</b>: О-ворот.
+                            <br>
+                            <b>Особенности:</b>: Высшее качество.
+                        </label>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="label6S">
+                            Рекомендации по уходу
+                        </label>
+                        <br>
+                        <label>
+                            Изделие будет дольше сохранять привлекательный внешний вид если придерживаться правил эксплуатации:
+                        </label>
+                        <br>
+                        <ul style="list-style: circle;">
+                            <li>Рекомендуется ручная стирка, но допускается стирка в стиральной машине в щадящем режиме при температуре воды до 30°C.</li>
+                            <li>Не отбеливать</li>
+                            <li>Гладить при низкой температуре(режим "Шелк") </li>
+                            <li>Не подвергать химической очистке</li>
+                            <li>Не сушить в барабане</li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="block13S" id="block13-2" style="display: none;">
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="label6S">
+                        Способы доставки
+                    </label>
+                    <br>
+                    <label>
+                        Получить заказ вы можете одним из перечисленных способов:
+                    </label>
+                    <br>
+                    <ul style="list-style: circle;">
+                        <li><b>Доставка по Астане 500 тг</b> доставляется до двери в течении дня;</li>
+                        <li><b>Доставка до почтового отделения KazPost по всему Казахстану</b> (5-7 дней) - 500-800тг;</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <label class="label6S">
+                        Способ оплаты
+                    </label>
+                    <br>
+                    <ul style="list-style: circle;">
+                        <li><b>Наложенный платеж</b> (оплата при получении).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal_form">
+    <!-- Сaмo oкнo -->
+    <i id="modal_close" class="fas fa-times-circle"></i>
+    <!-- Кнoпкa зaкрыть -->
+    <!-- Тут любoе сoдержимoе -->
+    <div class="row">
+        <div class="col-4">
+            @if (Model.Img != null)
+            {
+                <img src="~/Images/@Model.Img" style="width: 120%;" alt="@Model.Title" />
+            }
+            <img src="~/img/2_blue.png" class="img5S" />
+        </div>
+        <div class="col-8">
+            <table cellspacing="0" align="center" class="tableS">
+                <tbody>
+                    <tr>
+                        <th>Размер<br>EU</th>
+                        <th>Размер<br>RU</th>
+                        <th>Длина<br>X, Y</th>
+                    </tr>
+                    <tr>
+                        <td>XS</td>
+                        <td>42-44</td>
+                        <td style="white-space: nowrap;">
+                            43см, 66см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>44-46</td>
+                        <td style="white-space: nowrap;">
+                            49см, 68см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>46-48</td>
+                        <td style="white-space: nowrap;">
+                            51см, 72см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>L</td>
+                        <td>48-50</td>
+                        <td style="white-space: nowrap;">
+                            55см, 73см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XL</td>
+                        <td>50-52</td>
+                        <td style="white-space: nowrap;">
+                            57см, 75см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XXL</td>
+                        <td>52-54</td>
+                        <td style="white-space: nowrap;">
+                            59см, 78см
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>XXXL</td>
+                        <td>54-56</td>
+                        <td style="white-space: nowrap;">
+                            64см, 80см
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="overlay"></div><!-- Пoдлoжкa -->
+<div id="modal_formM">
+    <!-- Сaмo oкнo -->
+    <i id="modal_close" class="fas fa-times-circle"></i>
+    <!-- Кнoпкa зaкрыть -->
+    <!-- Тут любoе сoдержимoе -->
+    <table cellspacing="0" align="center" class="tableS" style="margin-left: 0;">
+        <tbody>
+            <tr>
+                <th>Размер<br>EU</th>
+                <th>Размер<br>RU</th>
+            </tr>
+            <tr>
+                <td>XS</td>
+                <td>42-44</td>
+            </tr>
+            <tr>
+                <td>S</td>
+                <td>44-46</td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>46-48</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>48-50</td>
+            </tr>
+            <tr>
+                <td>XL</td>
+                <td>50-52</td>
+            </tr>
+            <tr>
+                <td>XXL</td>
+                <td>52-54</td>
+            </tr>
+            <tr>
+                <td>XXXL</td>
+                <td>54-56</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <script>
+        function information(id) {
+            var block12 = '#block12-' + id;
+            var block13 = '#block13-' + id;
+            if (id == 1) {
+                var other12 = '#block12-2';
+                var other13 = '#block13-2';
+            } else {
+                var other12 = '#block12-1';
+                var other13 = '#block13-1';
+            }
+            $(block12).css('border-bottom', 'none');
+            $(block12).css('background', 'white');
+            $(block13).css('display', 'block');
+            $(other12).css('border-bottom', '1px solid #d0d7dd');
+            $(other12).css('background', '#f8f8f8');
+            $(other13).css('display', 'none');
+        }
+    </script>
+    <script>
+        function Size(id) {
+            var sizeRadio = '#' + id;
+            $(sizeRadio).prop("checked", true);
+        }
+
+        var checkboxClass = '.block8S';
+        $(checkboxClass).on('click', function (evt) {
+            var $box = $(this);
+            var group = "label[class='block8S']";
+            $(group).css("background", '#f8f8f8').css("color", "#898989");
+            $box.css("background", '#9b2f53').css("color", "white");
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () { // вся мaгия пoсле зaгрузки стрaницы
+            $('a#go').click(function (event) { // лoвим клик пo ссылки с id="go"
+                event.preventDefault(); // выключaем стaндaртную рoль элементa
+                $('#overlay').fadeIn(400, // снaчaлa плaвнo пoкaзывaем темную пoдлoжку
+                    function () { // пoсле выпoлнения предъидущей aнимaции
+                        if (window.innerWidth < 550) {
+                            $('#modal_formM')
+                                .css('display', 'block') // убирaем у мoдaльнoгo oкнa display: none;
+                                .animate({ opacity: 1, top: '50%' }, 200); // плaвнo прибaвляем прoзрaчнoсть oднoвременнo сo съезжaнием вниз
+                        }
+                        else {
+                            $('#modal_form')
+                                .css('display', 'block') // убирaем у мoдaльнoгo oкнa display: none;
+                                .animate({ opacity: 1, top: '50%' }, 200); // плaвнo прибaвляем прoзрaчнoсть oднoвременнo сo съезжaнием вниз
+                        }
+                    });
+            });
+            /* Зaкрытие мoдaльнoгo oкнa, тут делaем тo же сaмoе нo в oбрaтнoм пoрядке */
+            $('#modal_close, #overlay').click(function () { // лoвим клик пo крестику или пoдлoжке
+                $('#modal_form')
+                    .animate({ opacity: 0, top: '45%' }, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+                        function () { // пoсле aнимaции
+                            $(this).css('display', 'none'); // делaем ему display: none;
+                            $('#overlay').fadeOut(400); // скрывaем пoдлoжку
+                        }
+                    );
+                $('#modal_formM')
+                    .animate({ opacity: 0, top: '45%' }, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+                        function () { // пoсле aнимaции
+                            $(this).css('display', 'none'); // делaем ему display: none;
+                            $('#overlay').fadeOut(400); // скрывaем пoдлoжку
+                        }
+                    );
+            });
+        });
+    </script>
+    <script>
+        // Выбор стороны футболки
+        function imageSelect(id) {
+            if (id == 1) {
+                $('#image1').css('display', 'block');
+                $('#image2').css('display', 'none');
+            } else {
+                $('#image2').css('display', 'block');
+                $('#image1').css('display', 'none');
+            }
+        }
+
+    </script>
+    <script src="~/js/my_carousel.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Размер под мобильную версию
+            if (window.innerWidth > 550) {
+                $('.img6S').css("width", "380px");
+                $('.container2').myCarousel({
+                    btnNext: '.next',
+                    btnPrev: '.prev',
+                    visible: 4,
+                    rotateBy: 1
+                });
+            }
+            else {
+                $('.container2').myCarousel({
+                    btnNext: '.next',
+                    btnPrev: '.prev',
+                    visible: 2,
+                    rotateBy: 1
+                });
+            }
+
+        });
+    </script>
+    <script>
+        $(window).on('load', function () {
+            $preloader = $('.loaderArea2'),
+                $loader = $preloader.find('.loader');
+            $loader.fadeOut();
+            $preloader.delay(350).fadeOut('slow');
+        });
+    </script>
+}

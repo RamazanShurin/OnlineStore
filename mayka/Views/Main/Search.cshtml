@@ -1,0 +1,63 @@
+﻿@model List<mayka.Models.MProduct>
+
+@{
+    ViewData["Title"] = "Поиск по - " + ViewBag.SearсhString;
+}
+
+<label style="font-size: 20px"> Поиск по - <b> @ViewBag.SearсhString</b> </label>
+<div class="row" style="margin-left: 0px; margin-right: 0px;">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+        <div class="col3S">
+            @if (item.Type != "Кружка")
+            {
+                <a asp-action="Details" asp-controller="Main" asp-route-id="@item.Id">
+                    <div class="block5S">
+                        @if (item.Img != null)
+                        {
+                            <img src="~/img/фондляфутболкиPng.png" width="100" class="img10S" alt="футболка" />
+                            <img src="~/Images/@item.Img" width="100" class="imgS" alt="@item.Title кружка" />
+                        }
+                        <hr />
+                        <label class="labelS">@item.Type</label>
+                        <br>
+                        <label class="label2S">@item.Title</label>
+                        <br>
+                        <label class="label23S">@item.Discount @item.Currency</label>
+                        <label class="label3S">@item.Price @item.Currency</label>
+                        <div class="block35S">Подробнее</div>
+                        <br />
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a asp-action="DetailsCup" asp-controller="Main" asp-route-id="@item.Id">
+                    <div class="block5S">
+                        @if (item.Img != null)
+                        {
+                            <img src="~/img/фондляфутболкиPng.png" width="100" class="img10S" alt="футболка" />
+                            <img src="~/Images/@item.Img" width="100" class="imgS" alt="@item.Title футболка" />
+                        }
+                        <hr />
+                        <label class="labelS">@item.Type</label>
+                        <br>
+                        <label class="label2S">@item.Title</label>
+                        <br>
+                        <label class="label23S">@item.Discount @item.Currency</label>
+                        <label class="label3S">@item.Price @item.Currency</label>
+                        <div class="block35S">Подробнее</div>
+                        <br />
+                    </div>
+                </a>
+            }
+        </div>
+        }
+    }
+    else
+    {
+        <b>По запросу ничего не найдено</b>
+    }
+</div>  

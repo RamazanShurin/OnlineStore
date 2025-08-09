@@ -1,0 +1,218 @@
+﻿@model mayka.ViewModels.CategoriesProductsVM
+
+@{
+    ViewData["Title"] = "Печать на футболках, принты на футболки, футболки на заказ";
+}
+
+<div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="sidebarSiteLeft">
+                <ul style="margin-left: -40px;">
+                    <li class="linksSite">
+                        <h2 class="widgettitle">Категории</h2>
+                        <div style="padding-left: 9px; padding-right: 5px;">
+                            <a style="transition: all 0.6s ease;" asp-action="Redactor">Создать свою футболку</a>
+                        </div>
+                    </li>
+                    @foreach (var item in Model.Categories)
+                    {
+                        if (item.Title != "Без категории")
+                        {
+                            <li class="linksSite">
+                                <div style="padding-left: 9px; padding-right: 5px;">
+                                    <a style="transition: all 0.6s ease;" href="@Url.Action("Index", new { page = 1, catId = item.Id })#dynamicContentContainer">@item.Title</a>
+                                </div>
+                            </li>
+                        }
+                    }
+                  
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            
+            <div class="block28S">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <form asp-action="Index" asp-controller="Main" id="formIndex">
+                            <label class="label14S">Категория - <label class="label17S">@ViewBag.Category</label></label>
+                            <input type="hidden" name="catId" value="@ViewBag.CategoryId" />
+                            <label class="label14S">
+                                Тип -
+                                <select class="selectS" name="type" onchange="SubmitIndex()" asp-items="ViewBag.TypeList"></select>
+                            </label>
+                        </form>
+                    </div>
+                    <div class="col-lg-4" id="dynamicContentContainer">
+                        <div class="paginationSite">
+                            @{
+                                var pages = Math.Ceiling(ViewBag.ProductsCount / (decimal)ViewBag.PageSize);
+                                var pageBegin = (int)ViewBag.PagesBegin;
+                                var pageEnd = (int)ViewBag.PagesEnd;
+                                <label class="paginationLabel">
+                                    Страница: &nbsp;
+                                </label>
+                                if (ViewBag.Page != 1 && ViewBag.Page > 3)
+                                {
+                                    <a href="@Url.Action("Index", new { page = 1, catId = ViewBag.CategoryId, type = ViewBag.Type})#dynamicContentContainer" class="@(ViewBag.Page == 1 ? "activeSite" : "paginationLinkSite")">1</a>
+
+                                    <label>
+                                        ...
+                                    </label>
+                                }
+                                for (var i = pageBegin; i <= pageEnd; i++)
+                                {
+                                    <a href="@Url.Action("Index", new { page = i, catId = ViewBag.CategoryId, type = ViewBag.Type})#dynamicContentContainer" class="@(ViewBag.Page == i ? "activeSite" : "paginationLinkSite")">@i</a>
+                                }
+                                if (ViewBag.Page != pages && ViewBag.Page < pages - 3)
+                                {
+                                    <label>
+                                        ...
+                                    </label>
+                                    <a href="@Url.Action("Index", new { page = pages, catId = ViewBag.CategoryId, type = ViewBag.Type})#dynamicContentContainer" class="@(ViewBag.Page == pages ? "activeSite" : "paginationLinkSite")">@pages</a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row" style="margin-left: 0px; margin-right: 0px; background: white;     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;">
+                @if (ViewBag.Page == 1)
+                {
+                    <div class="col3S">
+                        <a asp-action="Redactor" asp-controller="Main">
+                            <div class="block5S">
+                                <img src="~/Images/redactorM.png" class="imgS" alt="печать на футболках">
+                                <hr />
+                                <label class="labelS">Мужская футболка</label>
+                                <br>
+                                <label class="labelS">Футболка с вашим дизайном</label>
+                                <br>
+                                <label class="label3S">3000 тг</label>
+                                <div class="block35S" style="color:#4c9702;"> Создать</div>
+                                <br />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col3S">
+                        <a asp-action="RedactorW" asp-controller="Main">
+                            <div class="block5S">
+                                <img src="~/Images/redactorW.png" class="imgS" alt="принты на футболках">
+                                <hr />
+                                <label class="labelS">Женская футболка</label>
+                                <br>
+                                <label class="labelS">Футболка с вашим дизайном</label>
+                                <br>
+                                <label class="label3S">3000 тг</label>
+                                <div class="block35S" style="color:#4c9702;">Создать</div>
+                                <br />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col3S">
+                        <a asp-action="RedactorFlex" asp-controller="Main">
+                            <div class="block5S">
+                                <img src="~/img/4.png" class="imgS" alt="флекс нанесение на футболки">
+                                <hr />
+                                <label class="labelS">Футболка(Унисекс)</label>
+                                <br>
+                                <label class="labelS">Флекс редактор</label>
+                                <br>
+                                <label class="label3S">3000 тг</label>
+                                <div class="block35S" style="color:#4c9702;"> Создать</div>
+                                <br />
+                            </div>
+                        </a>
+                    </div>
+                }
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col3S">
+                        @if (item.Type != "Кружка")
+                        {
+                            <a asp-action="Details" asp-controller="Main" asp-route-id="@item.Id">
+                                <div class="block5S">
+                                    @if (item.Img != null)
+                                    {
+                                        <img src="~/img/фондляфутболкиPng.png" width="100" class="img10S" alt="футболка" />
+                                        <img src="~/Images/@item.Img" width="100" class="imgS" alt="@item.Title кружка" />
+                                    }
+                                    <hr />
+                                    <label class="labelS">@item.Type</label>
+                                    <br>
+                                    <label class="label2S">@item.Title</label>
+                                    <br>
+                                    <label class="label23S">@item.Discount @item.Currency</label>
+                                    <label class="label3S">@item.Price @item.Currency</label>
+                                    <div class="block35S">Подробнее</div>
+                                    <br />
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-action="DetailsCup" asp-controller="Main" asp-route-id="@item.Id">
+                                <div class="block5S">
+                                    @if (item.Img != null)
+                                    {
+                                        <img src="~/img/фондляфутболкиPng.png" width="100" class="img10S" alt="футболка" />
+                                        <img src="~/Images/@item.Img" width="100" class="imgS" alt="@item.Title футболка" />
+                                    }
+                                    <hr />
+                                    <label class="labelS">@item.Type</label>
+                                    <br>
+                                    <label class="label2S">@item.Title</label>
+                                    <br>
+                                    <label class="label23S">@item.Discount @item.Currency</label>
+                                    <label class="label3S">@item.Price @item.Currency</label>
+                                    <div class="block35S">Подробнее</div>
+                                    <br />
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+                <div class="block28S" style="background: white;">
+                    <div class="paginationSite">
+                        @{
+                            <label class="paginationLabel">
+                                Страница: &nbsp;
+                            </label>
+                            if (ViewBag.Page != 1 && ViewBag.Page > 3)
+                            {
+                                <a href="@Url.Action("Index", new { page = 1, catId = ViewBag.CategoryId, type = ViewBag.Type})#dynamicContentContainer" class="@(ViewBag.Page == 1 ? "activeSite" : "paginationLinkSite")">1</a>
+
+                                <label>
+                                    ...
+                                </label>
+                            }
+                            for (var i = pageBegin; i <= pageEnd; i++)
+                            {
+                                <a href="@Url.Action("Index", new { page = i, catId = ViewBag.CategoryId, type = ViewBag.Type})#dynamicContentContainer" class="@(ViewBag.Page == i ? "activeSite" : "paginationLinkSite")">@i</a>
+                            }
+                            if (ViewBag.Page != pages && ViewBag.Page < pages - 3)
+                            {
+                                <label>
+                                    ...
+                                </label>
+                                <a href="@Url.Action("Index", new { page = pages, catId = ViewBag.CategoryId, type = ViewBag.Type})#dynamicContentContainer" class="@(ViewBag.Page == pages ? "activeSite" : "paginationLinkSite")">@pages</a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function SubmitIndex() {
+            $('#formIndex').submit();
+        }
+    </script>
+}

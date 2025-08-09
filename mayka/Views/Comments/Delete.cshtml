@@ -1,0 +1,54 @@
+﻿@model mayka.Models.MComment
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Отзывы</h2>
+
+<h3>Удалить</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Контент
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            Автор
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt>
+            Дата
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            Фото
+        </dt>
+        <dd>
+            @if (Model.Img != null)
+            {
+            <img src="~/Images/@Model.Img" width="100" />
+            }
+        </dd>
+        <dt>
+            Опубликованный
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Public)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад</a>
+    </form>
+</div>

@@ -1,0 +1,46 @@
+﻿@model mayka.Models.MPurchase
+
+@{
+    ViewData["Title"] = "Детали вашего заказа";
+}
+
+<div>
+    <h4>Ваш заказ</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Дата
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DatePurchase)
+        </dd>
+        <dt>
+            Статус?
+        </dt>
+        <dd>
+            @if (Model.Completed == false)
+            {
+                <label style="    border: 1px solid;    border-color: #9595fe;    padding: 10px;">В разработке</label>
+            }
+            else
+            {
+                <label style="    border: 1px solid;    border-color: green;    padding: 10px;">Выполнено</label>
+            }
+        </dd>
+        <dt>
+            Ф.И.О. клиента
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Client.FullName)
+        </dd>
+    </dl>
+    <h6>Заказанные товары</h6>
+    @foreach (var item in Model.PurProducts)
+    {
+        <img src="~/Images/@item.Img" width="120" />
+        <img src="~/Images/@item.ImgBack" width="120" />
+        <label>Размер: @item.Size</label>
+        <hr />
+    }
+</div>
+

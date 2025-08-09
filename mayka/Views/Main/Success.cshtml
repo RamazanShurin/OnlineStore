@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Заказ принят";
+}
+<div style="margin-top: 25px;">
+    <a asp-action="Index" asp-controller="Main" class="link2S"><i class="fab fa-elementor"></i> Назад в каталог</a>
+    <a asp-action="Index" asp-controller="Main" class="link3S">Главная</a> —
+    <a asp-action="Index" asp-controller="Cart" class="link3S">Корзина</a> —
+    <a href="#" class="link3S">Оформление</a>
+</div>
+<div class="row">
+    <div class="col-10 ">
+        <div class="block31S">
+            <h5>Спасибо, ваш заказ принят. </h5>
+            <br />
+            <label>На почту которую вы указали мы выслали ссылку на детали вашего заказа.</label>
+            <br />
+            <label>Если во входящих в почте не оказалось нашего письма, то скорее всего письмо попало в категорию спама.</label>
+            <br />
+            <label>В течении 24 часов наш менеджер свяжется с вами.</label>
+            <hr />
+            <a asp-action="Index">Вернуться на главную</a>
+        </div>
+    </div>
+</div>

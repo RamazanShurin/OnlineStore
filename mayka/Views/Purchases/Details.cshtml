@@ -1,0 +1,51 @@
+﻿@model mayka.Models.MPurchase
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Details";
+}
+
+<h2>Заказы</h2>
+
+<div>
+    <h4>Подробно</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Дата создания
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DatePurchase)
+        </dd>
+        <dt>
+            Дата прибытия
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateDelivery)
+        </dd>
+        <dt>
+            Выполненный?
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Completed)
+        </dd>
+        <dt>
+            Ф.И.О. клиента
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Client.FullName)
+        </dd>
+    </dl>
+    <h6>Продукты</h6>
+    @foreach (var item in Model.PurProducts)
+    {
+        <img src="~/Images/@item.Img" width="120" />
+        <img src="~/Images/@item.ImgBack" width="120" />
+        <label>Размер: @item.Size</label>
+        <hr />
+    }
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Изменить</a> |
+    <a asp-action="Index">Назад</a>
+</div>

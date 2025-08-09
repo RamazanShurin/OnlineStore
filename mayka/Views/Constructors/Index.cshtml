@@ -1,0 +1,56 @@
+﻿@model IEnumerable<mayka.Models.MConstructor>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdm.cshtml";
+    ViewData["Title"] = "Index";
+    var base64 = "";
+    var imgSrc = "";
+}
+
+<h2>Конструкторы</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Фото
+            </th>
+            <th>
+                Заднее фото
+            </th>
+            <th>
+                Используемые шрифты
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @if (item.FullImg != null)
+                {
+                    base64 = Convert.ToBase64String(item.FullImg);
+                    imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                    <img src="@imgSrc" width="100" />
+                }
+            </td>
+            <td>
+                @if (item.FullImgBack != null)
+                {
+                    base64 = Convert.ToBase64String(item.FullImgBack);
+                    imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                    <img src="@imgSrc" width="100" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Font)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Подробно</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
